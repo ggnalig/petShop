@@ -1,9 +1,12 @@
 const {Transcaction, User, Item} = require('../models')
+const {Op} = require('Sequelize')
 const idrFormat = require('../helpers/idrFormat')
+
 class transactionController {
     static search(req, res) {
         let params = req.query.search
         Transcaction.findAll({
+            include: [User],
             where: {
                 [Op.or]: [{
                     first_name: {
@@ -17,7 +20,7 @@ class transactionController {
             }
         })
         .then(data => {
-            res.render('transactions/list', {data})
+            res.render('transactions/list', {data, idrFormat})
         })
         .catch(err => {
             res.send(err)
@@ -29,7 +32,7 @@ class transactionController {
             include:[User, Item]
         })
         .then(data => {
-            res.render('transactions/list', {data})
+            res.render('transactions/list', {data, idrFormat})
         })
         .catch(err => {
             res.send(err)
@@ -54,12 +57,14 @@ class transactionController {
     }
     
     static insert(req, res) {
+        let x = req.body.price
+        let y = req.body.quantity
         const obj = {
             UserId: req.body.UserId,
             ItemId: req.body.ItemId,
             quantity: req.body.quantity,
-            price: 'CEK DISINIII',
-            total: 'CEK DISINIII'
+            price: req.body.price,
+            total: x * y
         }
         Transcaction.create(obj)
         .then(data => {
@@ -70,23 +75,27 @@ class transactionController {
         })
     }
     
-    static edit(req, res) {
-        
-    }
-    
-    static post(req, res) {
-        
-    }
-    
     static delete(req, res) {
-        let params = req.params.id
+        let id = req.params.id
         Transcaction.destroy({
             where: {
-                id: Number(params)
+                id: Number(id)
             }
         })
         .then(data => {
             res.redirect('/transactions')
+        })
+        .catch(err => {
+            res.send(err)
+        })
+    }
+
+    static print(req, res) {
+        let id = req.params.id
+        let alert = req.query.alert
+        Transcaction.findByPk(Number(id))
+        .then(data => {
+            res.render('invoices/invoice', {data, alert, idrFormat})
         })
         .catch(err => {
             res.send(err)

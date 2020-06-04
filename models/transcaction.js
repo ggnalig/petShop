@@ -19,13 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     total: DataTypes.INTEGER,
     price: DataTypes.INTEGER
-  }, {hooks:{
-      beforeCreate: (data, options) => {
-        if (!data.total) {
-          data.total = data.quantity * data.price
-        }
-      }
-    },sequelize});
+  },{sequelize});
     
     Transcaction.associate = function(models) {
       Transcaction.belongsTo(models.Item)

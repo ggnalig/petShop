@@ -1,0 +1,26 @@
+<%- include('../partials/invoicehead') %>
+<div class="container mt-4 text-center">
+    <hr>
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">Customer Name</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center">
+                <td> <%= data.UserId %> </td>
+                <td> <%= data.ItemId %> </td>
+                <td> <%= data.quantity %> </td>
+                <td> <%= `${idrFormat(data.price)}`%> </td>
+                <td> <%= `${idrFormat(data.total)}` %> </td>
+            </tr>
+        </tbody>
+    </table>
+    <p>Terima kasih atas kunjungan anda</p>
+</div>
+<%- include('../partials/footer') %> 
