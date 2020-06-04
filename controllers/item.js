@@ -1,6 +1,5 @@
 const {Item} = require('../models')
 const idrFormat = require('../helpers/idrFormat')
-const expDateFormat = require('../helpers/expDateFormat')
 const {Op} = require('Sequelize')
 
 class ItemController {
@@ -14,7 +13,7 @@ class ItemController {
             }
         })
         .then(data => {
-            res.render('items/list', {data, idrFormat, expDateFormat})
+            res.render('items/list', {data, idrFormat})
         })
         .catch(err => {
             res.send(err)
@@ -27,7 +26,7 @@ class ItemController {
         } else {
             Item.findAll()
             .then(data => {
-                res.render('items/list', {data, idrFormat, expDateFormat})
+                res.render('items/list', {data, idrFormat})
             })
             .catch(err => {
                 res.send(err)

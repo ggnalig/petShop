@@ -1,0 +1,52 @@
+<%- include('../partials/header') %>
+<div class="container mt-4 text-center">
+    <% if (alert) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= alert %>
+        </div>
+      <% } %>
+        <% if (data) { %> 
+        <form action="/transactions/edit/<%= data.id %>" method="POST">
+            <div class="form-group">
+                <label for="UserId">Customer Name</label><br><br>
+                <select name="UserId">
+                    <% for(let i=0; i < user.length; i++){ %>     
+                        <option value="<%= user[i].id %>"><%= user[i].name() %></option>
+                        <% } %>
+                </select><br><br>
+                <label for="ItemId">Item Name</label><br><br>
+                <select name="ItemId">
+                    <% for(let i=0; i < item.length; i++){ %>     
+                        <option value="<%= item[i].id %>"><%= item[i].name %></option>
+                        <% } %>
+                </select><br><br>
+                <label for="username">Quantity</label>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="<%= data ? data.username :'' %>">
+                <br>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <%} else { %> 
+        <form action="/transactions/add" method="POST">
+            <div class="form-group">
+                <label for="UserId">Customer Name</label><br><br>
+                <select name="UserId">
+                    <% for(let i=0; i < user.length; i++){ %>     
+                        <option value="<%= user[i].id %>"><%= user[i].name() %></option>
+                        <% } %>
+                </select><br><br>
+                <label for="ItemId">Item Name</label><br><br>
+                <select name="ItemId">
+                    <% for(let i=0; i < item.length; i++){ %>     
+                        <option value="<%= item[i].id %>"><%= item[i].name %> --- <%= `${idrFormat(item[i].price)}` %> --- <%= item[i].quantity %></option>
+                        <% } %>
+                </select><br><br>
+                <label for="quantity">Quantity</label>
+                <input type="number" name="quantity" class="form-control" id="quantity" placeholder="Quantity">
+                <br>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <% } %> 
+</div>
+<%- include('../partials/footer') %> 
