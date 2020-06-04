@@ -1,28 +1,31 @@
 'use strict';
+
+const { encrypt } = require('../helpers/bcrypt.js');
+
 module.exports = (sequelize, DataTypes) => {
   const Sequelize = sequelize.Sequelize
   const Model = Sequelize.Model
-  
+
   class User extends Model {
     name() {
       return `${this.first_name} ${this.last_name}`
     }
   }
-  
+
   User.init({
     first_name: {
       type: DataTypes.STRING,
       validate: {
         firtstNameLength(value) {
-          if (value.length < 2) throw new Error('first name / last name harus lebih dari 2 karakter')
+          if (value.length < 2) throw new Error('first name harus lebih dari 2 karakter')
         }
       }
     },
     last_name: {
       type: DataTypes.STRING,
       validate: {
-       lastNameLength(value) {
-          if (value.length < 2) throw new Error('first name / last name harus lebih dari 2 karakter')
+        lastNameLength(value) {
+          if (value.length < 2) throw new Error('last name harus lebih dari 2 karakter')
         }
       }
     },
@@ -30,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         usernameLength(value) {
-          if (value.length < 8) throw new Error('username / password harus lebih dari 8 karakter')
+          if (value.length < 8) throw new Error('username harus lebih dari 8 karakter')
         }
       }
     },
@@ -38,21 +41,27 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         passwordLength(value) {
-          if (value.length < 8) throw new Error('password / password harus lebih dari 8 karakter')
+          if (value.length < 8) throw new Error('password harus lebih dari 8 karakter')
         }
       }
     }
   }, {
-    hooks:{
+    sequelize,
+    hooks: {
       beforeCreate: (data, options) => {
         if (!data.last_name) {
           data.last_name = data.first_name
         }
+      },
+      beforeCreate: (user) => {
+        user.password = encrypt(user.password);
       }
-    },sequelize});
-    
-    User.associate = function(models) {
-      User.belongsToMany(models.Item, {through: "Transcactions"})
-    };
-    return User;
+    }
+  });
+
+  User.associate = function (models) {
+    User.belongsToMany(models.Item, { through: "Transcactions" })
   };
+
+  return User;
+};

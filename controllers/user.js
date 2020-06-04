@@ -1,6 +1,5 @@
 const {User} = require('../models')
-const passwordHider = require('../helpers/passwordHider')
-const {Op} = require('Sequelize')
+const {Op} = require('sequelize')
 
 class userController {
     static search(req, res) {
@@ -19,7 +18,7 @@ class userController {
             }
         })
         .then(data => {
-            res.render('users/list', {data, passwordHider})
+            res.render('users/list', {data})
         })
         .catch(err => {
             res.send(err)
@@ -32,7 +31,7 @@ class userController {
         } else {
             User.findAll()
             .then(data => {
-                res.render('users/list', {data, passwordHider})
+                res.render('users/list', {data})
             })
             .catch(err => {
                 res.send(err)

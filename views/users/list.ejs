@@ -1,7 +1,7 @@
 <%- include('../partials/header') %>
 <div class="container mt-4">
     <div class="container mb-4 text-center"> 
-        <a class="btn btn-success" href="/users/add">Add New User</a><br><br>
+        <a class="btn btn-success" href="/register">Add New User</a><br><br>
         <form action="/users" method="GET">
             <div class="form-group">
                 <input type="text" class="form-control" id="search" placeholder="name" name="search"><br>
@@ -25,7 +25,7 @@
                 <td> <%= i+1%> </td>
                 <td> <%= data[i].name() %> </td>
                 <td> <%= data[i].username %> </td>
-                <td> <%= `${passwordHider(data[i].password)}` %> </td>
+                <td> <%= data[i].password %> </td>
                 <td>
                     <a href="/users/edit/<%= data[i].id %> " class="btn btn-warning"> Edit </a>     
                     <a href="/users/delete/<%= data[i].id %> " class="btn btn-danger"> Delete </a>
