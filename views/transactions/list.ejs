@@ -16,6 +16,7 @@
                 <th scope="col">Customer Name</th>
                 <th scope="col">Item Name</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
                 <th scope="col">Total</th>
                 <th scope="col">Action</th>
             </tr>
@@ -27,6 +28,7 @@
                 <td> <%= data[i].User.name() %> </td>
                 <td> <%= data[i].Item.name %> </td>
                 <td> <%= data[i].quantity %> </td>
+                <td> <%= data[i].Item.price %> </td>
                 <td> <%= data[i].total %> </td>
                 <td>
                     <a href="/transactions/edit/<%= data[i].id %> " class="btn btn-warning"> Edit </a>     
