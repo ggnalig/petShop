@@ -1,0 +1,40 @@
+<%- include('../partials/header') %>
+<div class="container mt-4">
+    <div class="container mb-4 text-center">
+        <a class="btn btn-success" href="/transactions/add">Add New Transaction</a><br><br>
+        <form action="/transactions" method="GET">
+            <div class="form-group">
+                <input type="text" class="form-control" id="search" placeholder="customer name" name="search"><br>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+    </div>
+    <table class="table table-hover">
+        <thead>
+            <tr class="text-center">
+                <th scope="col">No</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Item Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for( let i = 0; i < data.length; i++ ) { %>
+            <tr class="text-center">
+                <td> <%= i+1%> </td>
+                <td> <%= data[i].User.name() %> </td>
+                <td> <%= data[i].Item.name %> </td>
+                <td> <%= data[i].quantity %> </td>
+                <td> <%= data[i].total %> </td>
+                <td>
+                    <a href="/transactions/edit/<%= data[i].id %> " class="btn btn-warning"> Edit </a>     
+                    <a href="/transactions/delete/<%= data[i].id %> " class="btn btn-danger"> Delete </a>
+                </td>
+            </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<%- include('../partials/footer') %>

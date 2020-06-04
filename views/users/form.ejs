@@ -1,0 +1,39 @@
+<%- include('../partials/header') %>
+<div class="container mt-4 text-center">
+    <% if (alert) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= alert %>
+        </div>
+      <% } %>
+        <% if (data) { %> 
+        <form action="/users/edit/<%= data.id %>" method="POST">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name" value="<%= data ? data.first_name :'' %>">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name" value="<%= data ? data.last_name :'' %>">
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username" value="<%= data ? data.username :'' %>">
+                <label for="password">Password</label>
+                <input type="text" name="password" class="form-control" id="password" placeholder="Password" value="<%= data ? data.password :'' %>">
+                <br>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        <%} else { %> 
+        <form action="/users/add" method="POST">
+            <div class="form-group">
+                <label for="first_name">First Name</label>
+                <input type="text" name="first_name" class="form-control" id="first_name" placeholder="First Name">
+                <label for="last_name">Last Name</label>
+                <input type="text" name="last_name" class="form-control" id="last_name" placeholder="Last Name">
+                <label for="username">Username</label>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                <br>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        <% } %> 
+</div>
+<%- include('../partials/footer') %> 
