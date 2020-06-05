@@ -1,6 +1,6 @@
 const {Item} = require('../models')
 const idrFormat = require('../helpers/idrFormat')
-const {Op} = require('Sequelize')
+const {Op} = require('sequelize')
 
 class ItemController {
     static search(req, res) {
