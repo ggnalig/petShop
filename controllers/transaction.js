@@ -103,31 +103,31 @@ class transactionController {
             include: [User, Item]
         })
             .then(data => {
-                // res.send(data)
-                // ejs.renderFile(path.join(__dirname, '../views/', 'invoice.ejs'), { data, alert, idrFormat }, (err, data) => {
-                //     if (err) {
-                //         res.send(err);
-                //     } else {
-                //         let options = {
-                //             "height": "11.25in",
-                //             "width": "8.5in",
-                //             "header": {
-                //                 "height": "20mm",
-                //             },
-                //             "footer": {
-                //                 "height": "20mm",
-                //             },
+                res.send(data)
+                ejs.renderFile(path.join(__dirname, '../views/invoices', 'invoice.ejs'), { data, alert, idrFormat }, (err, data) => {
+                     if (err) {
+                         res.send(err);
+                     } else {
+                         let options = {
+                             "height": "11.25in",
+                             "width": "8.5in",
+                             "header": {
+                                 "height": "20mm",
+                             },
+                             "footer": {
+                                 "height": "20mm",
+                             },
 
-                //         };
-                //         pdf.create(data, options).toFile("invoice.pdf", function (err, data) {
-                //             if (err) {
-                //                 res.send(err);
-                //             } else {
-                //                 res.send("File created successfully");
-                //             }
-                //         });
-                //     }
-                // });
+                         };
+                         pdf.create(data, options).toFile("invoice.pdf", function (err, data) {
+                             if (err) {
+                                 res.send(err);
+                             } else {
+                                 res.send("File created successfully");
+                             }
+                         });
+                     }
+                 });
                 res.render('invoices/invoice', {data, alert, idrFormat})
             })
             .catch(err => {
